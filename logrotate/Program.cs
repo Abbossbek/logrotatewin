@@ -378,7 +378,7 @@ namespace logrotate
             {
                 if (fi.Length >= lrc.MaxSize)
                 {
-                    Logging.Log(Strings.RotateWhenMaximumFileSize, Logging.LogType.Verbose);
+                    Logging.Log(Strings.RotateBasedonFileSize, Logging.LogType.Verbose);
                     
                     return true;
                 }
@@ -779,7 +779,7 @@ namespace logrotate
                                 DeleteRotateFile(rotate_path + newFile, lrc);
                             }
 
-                            File.Move(m_fi.FullName, rotate_path + newFile);
+                            File.Copy(m_fi.FullName, rotate_path + newFile);
 
                             // if we are set to compress, then check if the new file is compressed.  this is done by looking at the first two bytes
                             // if they are set to 0x1f8b then it is already compressed.  There is a possibility of a false positive, but this should
@@ -886,7 +886,7 @@ namespace logrotate
                     try
                     {
                         if (bLogFileExists)
-                            File.Move(fi.FullName, rotate_path + rotate_name);
+                            File.Copy(fi.FullName, rotate_path + rotate_name);
                     }
                     catch (Exception e)
                     {
